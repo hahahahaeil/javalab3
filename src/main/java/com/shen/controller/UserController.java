@@ -17,11 +17,6 @@ public class UserController {
     @Autowired
     private UserMapper userMapper;
 
-    // Home page
-    @RequestMapping("/")
-    public String index() {
-        return "index";  // This could be an HTML or Thymeleaf template
-    }
 
     // Login page
     @RequestMapping("/login")
@@ -59,12 +54,10 @@ public class UserController {
         if (user != null && user.getPassword().equals(password)) {
             // Successful login
             model.addAttribute("message", "login success!");
-
             session.setAttribute("loginUser",id);
-
             return "welcome";  // Redirect to a welcome page or dashboard
         } else {
-            // Invalid credentials
+            // 无效账号，无法登录
             model.addAttribute("error", "Invalid ID or password!");
             return "login";  // Stay on the login page
         }

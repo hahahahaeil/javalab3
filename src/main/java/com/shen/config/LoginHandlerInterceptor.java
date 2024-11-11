@@ -1,7 +1,6 @@
 package com.shen.config;
 
 import org.springframework.web.servlet.HandlerInterceptor;
-import org.springframework.web.servlet.ModelAndView;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -16,7 +15,7 @@ public class LoginHandlerInterceptor implements HandlerInterceptor {
 
         if (loginUser == null) {
             request.setAttribute("msg","没有权限，请先登录");
-            request.getRequestDispatcher("/login.html").forward(request,response);
+            request.getRequestDispatcher("/login").forward(request,response);
             return false;
         }
         else{
