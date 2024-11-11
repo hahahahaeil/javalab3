@@ -2,12 +2,14 @@ package com.shen.controller;
 
 import com.shen.mapper.UserMapper;
 import com.shen.pojo.User;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.ui.Model;
+
 
 @Controller
 public class UserController {
@@ -49,14 +51,17 @@ public class UserController {
         return "register"; // Redirect or return to the registration page (template)
     }
 
+
     // User login logic
     @PostMapping("/login")
-    public String loginUser(@RequestParam("id") String id, @RequestParam("password") String password, Model model) {
+    public String loginUser(@RequestParam("id") String id, @RequestParam("password") String password, Model model,HttpSession session) {
         User user = userMapper.getUserById(id);
-
         if (user != null && user.getPassword().equals(password)) {
             // Successful login
             model.addAttribute("message", "login success!");
+
+            session.setAttribute("loginUser",id);
+
             return "welcome";  // Redirect to a welcome page or dashboard
         } else {
             // Invalid credentials
